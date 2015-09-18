@@ -19,17 +19,20 @@ namespace BasicAzureKnowledge
             //upload()
             /*azure async await demo*/
             //AsyncDemo. MyAsync1();
+        
+            
             Demo demo = new Demo();
            // demo.upload();
             demo.AsyncMethod();
             Console.WriteLine("finished!");
             Console.ReadKey();
         }
+
+
        
-        
-      
 
     }
+
     public class Demo : AllDemoList
     {
 
