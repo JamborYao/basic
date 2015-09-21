@@ -24,7 +24,9 @@ namespace BasicAzureKnowledge
             Demo demo = new Demo();
             // demo.upload();
             //demo.AsyncMethod();
-           JsonDemo. JArrayTest();
+            //JsonDemo. JArrayTest();
+            StorageDemo storageDemo = new StorageDemo();
+            storageDemo.GenerateSASURL();
             Console.WriteLine("finished!");
             Console.ReadKey();
         }

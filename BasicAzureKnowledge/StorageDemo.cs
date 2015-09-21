@@ -13,7 +13,8 @@ namespace BasicAzureKnowledge
         private string _accountName = "willshao";
         private string _accountKey = "tgbo/iCw6KMVBSH1T7wrpT1bjoYtWJXGjYU/xnTKSbeg2uUlzelekbcfTrSH3KRGp+Gkwkfbnlhs7Pl2gKn9nw==";
         //private string _stroageConnection = string.Format("DefaultEndpointsProtocol = https; AccountName={0};AccountKey={1}");
-        private string _stroageConnection {
+        private string _stroageConnection
+        {
             get { return string.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1}", this._accountName, this._accountKey); }
         }
         CloudBlobClient blobClient = null;
@@ -25,11 +26,11 @@ namespace BasicAzureKnowledge
 
         public async Task<CloudBlockBlob> uploadToAzure()
         {
-            
+
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(this._stroageConnection);
             blobClient = storageAccount.CreateCloudBlobClient();
             _container = blobClient.GetContainerReference(containerName);
-           
+
             await _container.CreateIfNotExistsAsync();
             await _container.SetPermissionsAsync(new BlobContainerPermissions
             {
@@ -46,6 +47,23 @@ namespace BasicAzureKnowledge
             return _blockBlob;
         }
 
-      
+        public void GenerateSASURL()
+        {
+            CloudStorageAccount cloudStorage = CloudStorageAccount.Parse(_stroageConnection);
+            CloudBlobClient blobClient = cloudStorage.CreateCloudBlobClient();
+
+            CloudBlobContainer blobContainer = blobClient.GetContainerReference("images");
+            CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference("hello.txt");
+
+            blockBlob.UploadText("Hello World!!!");
+
+            string sas = blockBlob.GetSharedAccessSignature(new SharedAccessBlobPolicy
+            {
+                Permissions = SharedAccessBlobPermissions.Read,
+                SharedAccessExpiryTime = DateTimeOffset.UtcNow.AddSeconds(30)
+            });
+
+            string url = blockBlob.Uri.AbsoluteUri + sas;
+        }
     }
 }
