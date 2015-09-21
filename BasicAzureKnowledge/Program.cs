@@ -22,8 +22,9 @@ namespace BasicAzureKnowledge
         
             
             Demo demo = new Demo();
-           // demo.upload();
-            demo.AsyncMethod();
+            // demo.upload();
+            //demo.AsyncMethod();
+           JsonDemo. JArrayTest();
             Console.WriteLine("finished!");
             Console.ReadKey();
         }

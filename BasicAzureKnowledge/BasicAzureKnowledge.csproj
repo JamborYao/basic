@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="AllDemoList.cs" />
     <Compile Include="AsyncDemo.cs" />
+    <Compile Include="JsonDemo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StorageDemo.cs" />
