@@ -20,14 +20,17 @@ namespace BasicAzureKnowledge
             //upload()
             /*azure async await demo*/
             //AsyncDemo. MyAsync1();
-            MyHttpGet();
+           // MyHttpGet();
 
-            Demo demo = new Demo();
-            // demo.upload();
-            //demo.AsyncMethod();
-           JsonDemo. JArrayTest();
-            Console.WriteLine("finished!");
-            Console.ReadKey();
+            StorageDemo demo = new StorageDemo(accountKey: "JG19AuCzmIDUMK9gPQhQcrnba2934vzIAH5wgFJPNnFf04NioBORmwYHFQEfNJgJ77x70N / zGN6pKk36d3Am3A ==", accountName:"jambor");
+            demo.InitBlobCors();
+
+           // Demo demo = new Demo();
+           // // demo.upload();
+           // //demo.AsyncMethod();
+           //JsonDemo. JArrayTest();
+           // Console.WriteLine("finished!");
+           // Console.ReadKey();
         }
 
         public static async void MyHttpGet()

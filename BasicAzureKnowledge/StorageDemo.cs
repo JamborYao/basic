@@ -1,5 +1,6 @@
 ﻿using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.Shared.Protocol;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,20 +17,40 @@ namespace BasicAzureKnowledge
         private string _stroageConnection {
             get { return string.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1}", this._accountName, this._accountKey); }
         }
+        private string _stroageConnectionCN
+        {
+            get {
+                return string.Format(
+                "BlobEndpoint=https://{0}.blob.core.chinacloudapi.cn/;QueueEndpoint=https://{0}.queue.core.chinacloudapi.cn/;TableEndpoint=https://{0}.table.core.chinacloudapi.cn/;FileEndpoint=https://{0}.file.core.chinacloudapi.cn/;AccountName={0};AccountKey={1}", this._accountName, this._accountKey); }
+        }
         CloudBlobClient blobClient = null;
         CloudBlobContainer _container = null;
         CloudBlockBlob _blockBlob = null;
         public string containerName { get; set; }
         public string blobName { get; set; }
         public string filePath { get; set; }
-
-        public async Task<CloudBlockBlob> uploadToAzure()
+        public StorageDemo()
         {
-            
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(this._stroageConnection);
             blobClient = storageAccount.CreateCloudBlobClient();
-            _container = blobClient.GetContainerReference(containerName);
            
+        }
+        public StorageDemo(string containerName)
+        {
+            this.containerName = containerName;
+            _container = blobClient.GetContainerReference(containerName);
+          
+        }
+        public StorageDemo(string accountName,string accountKey)
+        {
+            _accountName= accountName ?? _accountName;
+            _accountKey = accountKey ?? _accountKey;
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(this._stroageConnectionCN);
+            blobClient = storageAccount.CreateCloudBlobClient();
+        }
+        public async Task<CloudBlockBlob> uploadToAzure()
+        {           
+                    
             await _container.CreateIfNotExistsAsync();
             await _container.SetPermissionsAsync(new BlobContainerPermissions
             {
@@ -45,7 +66,24 @@ namespace BasicAzureKnowledge
             }
             return _blockBlob;
         }
+        private  void ConfigureCors(ServiceProperties serviceProperties)
+        {
+            serviceProperties.Cors = new CorsProperties();
+            serviceProperties.Cors.CorsRules.Add(new CorsRule()
+            {
+                AllowedHeaders = new List<string>() { "content-type,accept,x-ms-*" },
+                AllowedMethods = CorsHttpMethods.Put | CorsHttpMethods.None, // | CorsHttpMethods.Head | CorsHttpMethods.Post,
+                AllowedOrigins = new List<string>() { "*" },
+                ExposedHeaders = new List<string>() { "x-ms-*" },
+                MaxAgeInSeconds = 1800 // 30 minutes
+            });
+        }
+        public void InitBlobCors()
+        {
+            ServiceProperties blobServiceProperties = blobClient.GetServiceProperties();
+            ConfigureCors(blobServiceProperties);
+            blobClient.SetServiceProperties(blobServiceProperties);
+        }
 
-      
     }
 }
