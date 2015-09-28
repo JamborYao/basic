@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAzure.Storage.Blob;
+﻿using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,10 +21,12 @@ namespace BasicAzureKnowledge
             //upload()
             /*azure async await demo*/
             //AsyncDemo. MyAsync1();
-           // MyHttpGet();
+            // MyHttpGet();
+
+
 
             StorageDemo demo = new StorageDemo(accountKey: "JG19AuCzmIDUMK9gPQhQcrnba2934vzIAH5wgFJPNnFf04NioBORmwYHFQEfNJgJ77x70N / zGN6pKk36d3Am3A ==", accountName:"jambor");
-            demo.InitBlobCors();
+          //  demo.InitBlobCors();
 
            // Demo demo = new Demo();
            // // demo.upload();
@@ -32,7 +35,7 @@ namespace BasicAzureKnowledge
            // Console.WriteLine("finished!");
            // Console.ReadKey();
         }
-
+      
         public static async void MyHttpGet()
         {
             string url = "http://10.168.172.243:8080/ThreadsManagerService.svc/GetThreadsByNumber?num=1";
