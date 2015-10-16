@@ -12,7 +12,7 @@ namespace BasicAzureKnowledge
     {
         public static void JArrayTest()
         {
-            string jsonStr = @"{'name':'jambor'}";
+            string jsonStr = @"{'name':'jambor'}"; 
             //JsonConvert.DeserializeObject(jsonStr);
 
             JArray ja = (JArray)JsonConvert.DeserializeObject(jsonStr);

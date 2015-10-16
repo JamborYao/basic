@@ -41,7 +41,7 @@ namespace BasicAzureKnowledge
             // Console.ReadKey();
             }
       
-        public static async void MyHttpGet()
+        public static async void MyHttpGet() 
         {
             string url = "http://10.168.172.243:8080/ThreadsManagerService.svc/GetThreadsByNumber?num=1";
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);

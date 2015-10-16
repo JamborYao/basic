@@ -92,7 +92,7 @@ namespace BasicAzureKnowledge
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(this._stroageConnectionCN);
             var tableClient = storageAccount.CreateCloudTableClient();
             IEnumerable<TEntity> entities = null;
-            try
+                        try
             {
                 CloudTable table = tableClient.GetTableReference(tableName);
                 TableQuery<TEntity> query = new TableQuery<TEntity>().Where(conditions);
