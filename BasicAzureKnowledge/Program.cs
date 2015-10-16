@@ -1,6 +1,8 @@
 ﻿using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.Table;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,15 +28,18 @@ namespace BasicAzureKnowledge
 
 
             StorageDemo demo = new StorageDemo(accountKey: "JG19AuCzmIDUMK9gPQhQcrnba2934vzIAH5wgFJPNnFf04NioBORmwYHFQEfNJgJ77x70N / zGN6pKk36d3Am3A ==", accountName:"jambor");
+            // demo.InsertToAzureTable();
+            var students= demo.RetrieveTableEntitiesInCondition<Student>("test", TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "grade2"));
+            List<Student> list= students.ToList();
           //  demo.InitBlobCors();
 
-           // Demo demo = new Demo();
-           // // demo.upload();
-           // //demo.AsyncMethod();
-           //JsonDemo. JArrayTest();
-           // Console.WriteLine("finished!");
-           // Console.ReadKey();
-        }
+            // Demo demo = new Demo();
+            // // demo.upload();
+            // //demo.AsyncMethod();
+            //JsonDemo. JArrayTest();
+            // Console.WriteLine("finished!");
+            // Console.ReadKey();
+            }
       
         public static async void MyHttpGet()
         {
