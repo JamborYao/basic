@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicAzureWeb", "BasicAzure
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicAzureMVC", "BasicAzureMVC\BasicAzureMVC.csproj", "{235B0A01-3EA4-48F7-B644-1EFC66EE9593}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagementLB", "ManagementLB\ManagementLB.csproj", "{EE47AA19-2548-4054-B047-65D2094C8746}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{235B0A01-3EA4-48F7-B644-1EFC66EE9593}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{235B0A01-3EA4-48F7-B644-1EFC66EE9593}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{235B0A01-3EA4-48F7-B644-1EFC66EE9593}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE47AA19-2548-4054-B047-65D2094C8746}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE47AA19-2548-4054-B047-65D2094C8746}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE47AA19-2548-4054-B047-65D2094C8746}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE47AA19-2548-4054-B047-65D2094C8746}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
