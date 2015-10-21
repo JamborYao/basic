@@ -13,7 +13,7 @@ namespace BasicAzureWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           // string token = GetAToken();
+           string token = GetAToken();
             string requestUri = "https://manage.windowsazure.cn/subscriptions/cbfce2e1-1ab1-4f95-a5a1-df8be530f290/providers/Microsoft.Commerce/UsageAggregates?api-version=2015-06-01-preview&reportedStartTime=2015-01-01T00%3a00%3a00%2b00%3a00&reportedEndTime=2015-09-23T00%3a00%3a00%2b00%3a00&aggreagationGranularity=Daily&showDetails=true";
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(requestUri);
             request.Headers.Add(HttpRequestHeader.Authorization, "Bearer " + token);

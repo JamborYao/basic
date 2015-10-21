@@ -2,10 +2,14 @@
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Management.Compute;
 using Microsoft.WindowsAzure.Management.Compute.Models;
+using Microsoft.WindowsAzure.Management.Models;
+using Microsoft.WindowsAzure.Management.Storage;
+using Microsoft.WindowsAzure.Management.Storage.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,8 +22,42 @@ namespace ManagementLB
         {
             var token = GetAuthorizationHeader();
             var credential = new TokenCloudCredentials(
-              "*********", token);
-            CreateVirtualMachine(credential).Wait();
+              "ed0caab7-c6d4-45e9-9289-c7e5997c9241", token);
+            var x509Certificate2 = new X509Certificate2();
+            CertificateCloudCredentials cer = new CertificateCloudCredentials("ed0caab7-c6d4-45e9-9289-c7e5997c9241", x509Certificate2);
+            // CreateVirtualMachine(credential).Wait();
+            CreateResources(credential);
+            Console.ReadLine();
+        }
+        public async static void CreateResources(
+  TokenCloudCredentials credential)
+        {
+            Console.WriteLine(
+              "Creating the storage account. This may take a few minutes...");
+            var stResult =
+              await CreateStorageAccount(credential);
+            Console.WriteLine(stResult);
+        }
+        public async static Task<string> CreateStorageAccount(
+  SubscriptionCloudCredentials credentials)
+        {
+            using (var storageClient = new StorageManagementClient(credentials))
+            {
+                try
+                {
+                    await storageClient.StorageAccounts.CreateAsync(
+                      new StorageAccountCreateParameters
+                      {
+                      // GeoReplicationEnabled = false,
+                      Label = "Sample Storage Account",
+                          Location = LocationNames.WestUS,
+                          Name = "mbjastorage"
+                      });
+                }
+                catch (Exception e)
+                { }
+            }
+            return "Successfully created account.";
         }
         public async Task Create(SubscriptionCloudCredentials credential)
         {

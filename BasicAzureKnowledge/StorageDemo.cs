@@ -22,9 +22,11 @@ namespace BasicAzureKnowledge
         }
         private string _stroageConnectionCN
         {
-            get {
+            get
+            {
                 return string.Format(
-                "BlobEndpoint=https://{0}.blob.core.chinacloudapi.cn/;QueueEndpoint=https://{0}.queue.core.chinacloudapi.cn/;TableEndpoint=https://{0}.table.core.chinacloudapi.cn/;FileEndpoint=https://{0}.file.core.chinacloudapi.cn/;AccountName={0};AccountKey={1}", this._accountName, this._accountKey); }
+                "BlobEndpoint=https://{0}.blob.core.chinacloudapi.cn/;QueueEndpoint=https://{0}.queue.core.chinacloudapi.cn/;TableEndpoint=https://{0}.table.core.chinacloudapi.cn/;FileEndpoint=https://{0}.file.core.chinacloudapi.cn/;AccountName={0};AccountKey={1}", this._accountName, this._accountKey);
+            }
         }
         CloudBlobClient blobClient = null;
         CloudBlobContainer _container = null;
@@ -43,18 +45,18 @@ namespace BasicAzureKnowledge
         {
             this.containerName = containerName;
             _container = blobClient.GetContainerReference(containerName);
-            
+
         }
-        public StorageDemo(string accountName,string accountKey)
+        public StorageDemo(string accountName, string accountKey)
         {
-            _accountName= accountName ?? _accountName;
+            _accountName = accountName ?? _accountName;
             _accountKey = accountKey ?? _accountKey;
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(this._stroageConnectionCN);
             blobClient = storageAccount.CreateCloudBlobClient();
         }
         public async Task<CloudBlockBlob> uploadToAzure()
-        {           
-           
+        {
+
             await _container.CreateIfNotExistsAsync();
             await _container.SetPermissionsAsync(new BlobContainerPermissions
             {
@@ -70,7 +72,7 @@ namespace BasicAzureKnowledge
             }
             return _blockBlob;
         }
-        private  void ConfigureCors(ServiceProperties serviceProperties)
+        private void ConfigureCors(ServiceProperties serviceProperties)
         {
             serviceProperties.Cors = new CorsProperties();
             serviceProperties.Cors.CorsRules.Add(new CorsRule()
@@ -88,12 +90,12 @@ namespace BasicAzureKnowledge
             ConfigureCors(blobServiceProperties);
             blobClient.SetServiceProperties(blobServiceProperties);
         }
-        public IEnumerable<TEntity> RetrieveTableEntitiesInCondition<TEntity>(string tableName, string conditions ) where TEntity : TableEntity, new()
+        public IEnumerable<TEntity> RetrieveTableEntitiesInCondition<TEntity>(string tableName, string conditions) where TEntity : TableEntity, new()
         {
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(this._stroageConnectionCN);
             var tableClient = storageAccount.CreateCloudTableClient();
             IEnumerable<TEntity> entities = null;
-                        try
+            try
             {
                 CloudTable table = tableClient.GetTableReference(tableName);
                 TableQuery<TEntity> query = new TableQuery<TEntity>().Where(conditions);
@@ -106,9 +108,10 @@ namespace BasicAzureKnowledge
             }
             catch (Exception ex)
             {
-               // logger.Warn("Retrieve condition entity failed: {0}.", ex.ToString());
+                // logger.Warn("Retrieve condition entity failed: {0}.", ex.ToString());
             }
 
-      
+            return entities;
+        }
     }
 }
