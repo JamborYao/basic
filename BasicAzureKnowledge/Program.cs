@@ -24,9 +24,10 @@ namespace BasicAzureKnowledge
             /*azure async await demo*/
             //AsyncDemo. MyAsync1();
             // MyHttpGet();
-        
-            
-            Demo demo = new Demo();
+            StorageDemo test = new StorageDemo("test1","test2");
+
+
+                Demo demo = new Demo();
             // demo.upload();
             //demo.AsyncMethod();
            JsonDemo. JArrayTest();
